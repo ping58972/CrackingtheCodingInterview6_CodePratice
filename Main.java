@@ -52,7 +52,7 @@ public class Main {
     Node n1 = new Node(7);
     n1.appendToTail(3);
     n1.appendToTail(6);
-    Node n2 = new Node(3);
+    Node n2 = new Node(9);
     n2.appendToTail(9);
     n2.appendToTail(3);
     n2.appendToTail(9);
@@ -60,7 +60,7 @@ public class Main {
     n2.appendToTail(2);
     n2.appendToTail(6);
     n2.appendToTail(5);
-        Node n = Chapter2_LinkedList.sumLists(n1, n2);
+        Node n = Chapter2_LinkedList.sumLists_reverse(n1, n2);
         while( n != null){
             System.out.println(n.data);
             n = n.next;

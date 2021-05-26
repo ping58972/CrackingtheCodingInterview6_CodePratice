@@ -171,10 +171,64 @@ public class Chapter2_LinkedList{
     public static Node sumLists(Node n1, Node n2){
         Node n = new Node();
         n.next = new Node();
-        // int [] i = new int[1];
-        sumLists(n, n1, n2);
-        // deleteLastZero(n);
+        Node h1 = n1;
+        Node h2 = n2;
+        while(n1.next != null || n2.next != null){
+            if(n1.next == null){
+                Node temp = new Node(0);
+                Node t = h1;
+                temp.next = t;
+                h1 = temp;
+            } else{
+                n1 = n1.next;
+            }
+            if(n2.next == null){
+                Node temp2 = new Node(0);
+                Node t2 = h2;
+                temp2.next = t2;
+                h2 = temp2;
+            } else {
+                n2 = n2.next;
+            }
+        }
+        sumLists(n, h1, h2);
+        n = deleteFirstZero(n);
         return n;
+    }
+    public static void sumLists(Node n, Node h1, Node h2){
+        if(h1.next != null){ 
+        n.next.next = new Node(0);      
+        sumLists(n.next, h1.next, h2.next);
+        }
+        int x = h1.data + h2.data + n.next.data;
+        n.next.data = x % 10;
+        n.data = x/10; 
+    }
+    public static Node deleteFirstZero(Node n){
+        if(n.data == 0){
+            return n.next;
+        }
+        return n;
+    }
+    public static Node sumLists_reverse(Node n1, Node n2){
+        Node n = new Node();
+        n.next = new Node();
+        sumLists_reverse(n, n1, n2);
+        deleteLastZero(n);
+        return n;
+    }
+    public static void sumLists_reverse(Node n, Node n1, Node n2){
+        int d = n1.data + n2.data + n.data;
+        n.data = d % 10;
+        n.next = new Node(d/10);
+        if(n1.next != null || n2.next != null){
+            if(n1.next == null){
+                n1.next = new Node(0);
+            } else if(n2.next == null){
+                n2.next = new Node(0);
+            }
+            sumLists_reverse(n.next, n1.next, n2.next);
+        } 
     }
     public static void deleteLastZero(Node n){
         while(n.next.next != null){
@@ -183,50 +237,6 @@ public class Chapter2_LinkedList{
         if(n.next.data == 0){
             n.next = null;
         }
-    }
-    // public static void sumLists_reverse(Node n, Node n1, Node n2){
-    //     int d = n1.data + n2.data + n.data;
-    //     n.data = d % 10;
-    //     n.next = new Node(d/10);
-    //     if(n1.next != null || n2.next != null){
-    //         if(n1.next == null){
-    //             n1.next = new Node(0);
-    //         } else if(n2.next == null){
-    //             n2.next = new Node(0);
-    //         }
-    //         sumLists(n.next, n1.next, n2.next);
-    //     } 
-    // }
-    public static void sumLists(Node n, Node n1, Node n2){
-        if(n1.next != null || n2.next != null){
-            if(n1.next == null){    
-                Node temp = n1.head;
-                n1.head = new Node(0);
-                n1.head.next = temp;
-            } else if(n2.next == null){
-                Node temp = n2.head;
-                n2.head = new Node(0);
-                n2.head.next = temp;
-            } 
-            if(n1.next != null){
-                n1 = n1.next;
-            } else if(n2.next != null){
-            n2 = n2.next;
-            } else {
-                return;
-            }
-            
-            n.next.next = new Node(0);
-            
-            sumLists(n.next, n1, n2);
-        } 
-           int x = n1.data + n2.data + n.next.data;
-            // System.out.println(d);
-        n.next.data = x % 10;
-        // i[0] = x/10;
-        n.data = x/10;
-        // n.next = new Node(d/10);
-        
     }
 }
 
@@ -239,9 +249,15 @@ class Node{
     public Node(){}
     public Node(int d){
         data = d;
-        length = 1;
+        // length = 1;
         head = this;
         // tail = this;
+    }
+    void addToHead(int d){
+        Node h = new Node(0);
+        Node t = head;
+        h.next = t;
+        head = h;
     }
     void appendToTail(int d){
         Node end = new Node(d);
