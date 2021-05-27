@@ -166,8 +166,9 @@ public class Chapter2_LinkedList{
         return head;
     }    
 
-    // Question 2.5 Input: (7-> 1 -> 6) + (5 -> 9 -> 2) .That is,617 + 295.
-    // Output: 2 -> 1 -> 9. That is, 912.
+/****************Question 2.5***********************/
+    // Input: (6 -> 1 -> 7) + (2 -> 9 -> 5).Thatis,617 + 295.
+    // Output: 9 -> 1 -> 2. That is, 912.
     public static Node sumLists(Node n1, Node n2){
         Node n = new Node();
         n.next = new Node();
@@ -210,6 +211,9 @@ public class Chapter2_LinkedList{
         }
         return n;
     }
+    
+    // Input: (7-> 1 -> 6) + (5 -> 9 -> 2) .That is,617 + 295.
+    // Output: 2 -> 1 -> 9. That is, 912.
     public static Node sumLists_reverse(Node n1, Node n2){
         Node n = new Node();
         n.next = new Node();
@@ -238,6 +242,7 @@ public class Chapter2_LinkedList{
             n.next = null;
         }
     }
+    /***********************************************/
 }
 
 class Node{

@@ -1,7 +1,10 @@
 
-// import java.util.List;
 public class Main {
     public static void main(String [] args){
+        // chapter1_Array_Stringt();
+        chapter2_LinkedList();    
+    }
+    // public static void chapter1_Array_Stringt(){
     //    boolean b = Chapter1_Array_String.isUnique_solution("Striign");
     //    boolean c = Chapter1_Array_String.checkPermutation_Ping("stur", "stru");
     //    String result = Chapter1_Array_String.urLify("Mr John Smith     ");
@@ -26,41 +29,45 @@ public class Main {
     //     }
 
     // boolean pp = Chapter1_Array_String.isSubstringRotation("waterbottle", "bottlewater");
-    // Node node = new Node(0);
-    // node.appendToTail(1);
-    // node.appendToTail(7);
-    // node.appendToTail(2);
-    // node.appendToTail(9);
-    // node.appendToTail(3);
-    // node.appendToTail(3);
-    // node.appendToTail(2);
-    // node.appendToTail(8);
-    // node.appendToTail(2);
-    // node.appendToTail(4);
-    // node.appendToTail(5);
-    // node.appendToTail(4);
-    // node.appendToTail(1);
-    // node.remove(node, 2);
-    // Node n = Chapter2_LinkedList.removeDups(node);
-    // Chapter2_LinkedList.deleteDups_HashSet(node);
-    
-    // Node n = Chapter2_LinkedList.kth_last(node, 2);
-    // Node n = Chapter2_LinkedList.nthToLast(node, 2);
-    // Chapter2_LinkedList.deleteMiddleNode(node);
-    // Node n = Chapter2_LinkedList.partition_linkedList(node, 5);
+    // }
+    public static void chapter2_LinkedList(){
 
-    Node n1 = new Node(7);
-    n1.appendToTail(3);
-    n1.appendToTail(6);
-    Node n2 = new Node(9);
-    n2.appendToTail(9);
-    n2.appendToTail(3);
-    n2.appendToTail(9);
-    n2.appendToTail(2);
-    n2.appendToTail(2);
-    n2.appendToTail(6);
-    n2.appendToTail(5);
-        Node n = Chapter2_LinkedList.sumLists_reverse(n1, n2);
+        // Node node = new Node(0);
+        // node.appendToTail(1);
+        // node.appendToTail(7);
+        // node.appendToTail(2);
+        // node.appendToTail(9);
+        // node.appendToTail(3);
+        // node.appendToTail(3);
+        // node.appendToTail(2);
+        // node.appendToTail(8);
+        // node.appendToTail(2);
+        // node.appendToTail(4);
+        // node.appendToTail(5);
+        // node.appendToTail(4);
+        // node.appendToTail(1);
+        // node.remove(node, 2);
+        // Node n = Chapter2_LinkedList.removeDups(node);
+        // Chapter2_LinkedList.deleteDups_HashSet(node);
+        
+        // Node n = Chapter2_LinkedList.kth_last(node, 2);
+        // Node n = Chapter2_LinkedList.nthToLast(node, 2);
+        // Chapter2_LinkedList.deleteMiddleNode(node);
+        // Node n = Chapter2_LinkedList.partition_linkedList(node, 5);
+
+        Node n1 = new Node(7);
+        n1.appendToTail(3);
+        n1.appendToTail(6);
+        Node n2 = new Node(1);
+        n2.appendToTail(9);
+        n2.appendToTail(3);
+        // n2.appendToTail(9);
+        // n2.appendToTail(2);
+        // n2.appendToTail(2);
+        // n2.appendToTail(6);
+        // n2.appendToTail(5);
+        Node n = Chapter2_LinkedList.sumLists(n1, n2);
+        // Node n = Chapter2_LinkedList.sumLists_reverse(n1, n2);
         while( n != null){
             System.out.println(n.data);
             n = n.next;
