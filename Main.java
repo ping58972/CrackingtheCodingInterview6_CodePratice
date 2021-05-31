@@ -1,4 +1,4 @@
-
+import java.util.*;
 public class Main {
     public static void main(String [] args){
         // chapter1_Array_Stringt();
@@ -55,22 +55,63 @@ public class Main {
         // Chapter2_LinkedList.deleteMiddleNode(node);
         // Node n = Chapter2_LinkedList.partition_linkedList(node, 5);
 
-        Node n1 = new Node(7);
-        n1.appendToTail(3);
-        n1.appendToTail(6);
-        Node n2 = new Node(1);
-        n2.appendToTail(9);
-        n2.appendToTail(3);
+        // Node n1 = new Node(7);
+        // n1.appendToTail(3);
+        // n1.appendToTail(6);
+        // Node n2 = new Node(1);
+        // n2.appendToTail(9);
+        // n2.appendToTail(3);
         // n2.appendToTail(9);
         // n2.appendToTail(2);
         // n2.appendToTail(2);
         // n2.appendToTail(6);
         // n2.appendToTail(5);
-        Node n = Chapter2_LinkedList.sumLists(n1, n2);
+        // Node n = Chapter2_LinkedList.sumLists(n1, n2);
         // Node n = Chapter2_LinkedList.sumLists_reverse(n1, n2);
-        while( n != null){
-            System.out.println(n.data);
-            n = n.next;
-        }
+        // while( n != null){
+        //     System.out.println(n.data);
+        //     n = n.next;
+        // }
+
+        Node n = new Node(0);
+        Node n1 = new Node(1);
+        Node n2 = new Node(2);
+        Node n3 = new Node(3);
+        Node n4 = new Node(4);
+        Node n5 = new Node(5);
+        Node n6 = new Node(6);
+        Node n7 = new Node(7);
+        // LinkedList<Node> l = new LinkedList<Node>();
+        // l.add(n);
+        // l.add(n1);
+        // l.add(n2);
+        // l.add(n3);
+        // // l.add(n2);
+        // l.add(n1);
+        // l.add(n);
+        // Iterator<Node> itr = l.listIterator();
+        // while(itr.hasNext()){
+        //     System.out.println(itr.next().data);
+        // }
+        // boolean b = Chapter2_LinkedList.palindrome(l);
+        // System.out.println(b);
+        Node h1 = new Node(-1);
+        Node h2 = new Node(-2);
+        h1.addNode(n);
+        h1.addNode(n2);
+        h1.addNode(n4);
+        h1.addNode(n5);
+        h1.addNode(n6);
+        h1.addNode(n7);
+        h2.addNode(n1);
+        h2.addNode(n3);
+        h2.addNode(n4);
+        h2.addNode(n5);
+        h2.addNode(n6);
+        h2.addNode(n7);
+
+        Node d = Chapter2_LinkedList.intersectingLinkedLists(h1, h2);
+
+   
     }
 }

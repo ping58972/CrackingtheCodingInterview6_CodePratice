@@ -1,4 +1,7 @@
 import java.util.HashSet;
+import java.util.Stack;
+import java.util.LinkedList;
+import java.util.*;
 public class Chapter2_LinkedList{
     // Qestion2.1 Remove Dups: Write code to remove duplicates from an unsorted linked list.
     public static Node removeDups_(Node n){
@@ -243,6 +246,58 @@ public class Chapter2_LinkedList{
         }
     }
     /***********************************************/
+
+    // Qestion 2.6 Palindrome: Implement a function to check if a linked list is a palindrome.
+    public static boolean palindrome(LinkedList<Node> list) {
+        Stack<Node> stack = new Stack<Node>();
+        stack.addAll(list);
+        while(!stack.isEmpty()){
+            if(stack.pop() != list.pop())
+                return false;
+        }
+        return true;
+    } 
+    // public static boolean palindrome(LinkedList<Node> list) {
+    //     Iterator<Node> itr = list.listIterator();
+        
+    //     return palindrome_recursive(list, itr, list.size());
+    // }
+    // public static boolean palindrome_recursive(LinkedList<Node> list, Iterator<Node> itr, int i){
+    //     Node n = null;
+    //     if(i != list.size()/2){
+    //         n = itr.next();
+    //         palindrome_recursive(list, itr, i--);
+    //     }
+    //     if(list.pop() != n)
+    //         return false;
+    //     return true;
+    // }
+
+    //Intersection: Given two (singly) linked lists, determine if the two lists intersect. 
+    // Return the intersecting node. Note that the intersection is defined based on reference, 
+    // not value. That is, if the kth node of the first linked list is the exact same node 
+    // (by reference) as the jth node of the second linked list, then they are intersecting.
+    public static Node intersectingLinkedLists(Node n1, Node n2){
+        Node h1 = n1;
+        Node h2 = n2;
+        Node p = null;
+        while(h1.next != null || h2.next != null){
+            if(h1 == h2){
+                p = h1;
+                break;
+            }
+            if(h1.next != null){
+
+            h1 = h1.next;
+            } else if (h2.next != null){
+
+            h2 = h2.next;
+            }
+        }
+        System.out.println(p.data);
+        return null;
+ 
+    } 
 }
 
 class Node{
@@ -257,6 +312,10 @@ class Node{
         // length = 1;
         head = this;
         // tail = this;
+    }
+    void addNode(Node newNode){
+        
+        this.next = newNode;
     }
     void addToHead(int d){
         Node h = new Node(0);
