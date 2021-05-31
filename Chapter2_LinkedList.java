@@ -282,19 +282,19 @@ public class Chapter2_LinkedList{
         Node h2 = n2;
         Node p = null;
         while(h1.next != null || h2.next != null){
-            if(h1 == h2){
-                p = h1;
-                break;
-            }
+            // if(h1 == h2){
+            //     p = h1;
+            //     break;
+            // }
             if(h1.next != null){
-
+                System.out.println(h1.data);
             h1 = h1.next;
             } else if (h2.next != null){
-
+                System.out.println(h2.data);
             h2 = h2.next;
             }
         }
-        System.out.println(p.data);
+        // System.out.println(p.data);
         return null;
  
     } 
@@ -305,17 +305,21 @@ class Node{
     int data;
     int length;
     Node head;
-    // Node tail;
+    Node tail;
     public Node(){}
     public Node(int d){
         data = d;
-        // length = 1;
+        length = 1;
         head = this;
+        // tail = head;
         // tail = this;
     }
     void addNode(Node newNode){
-        
-        this.next = newNode;
+        Node n = this;
+        while(n.next != null){
+            n = n.next;
+        }
+        n.next = newNode;
     }
     void addToHead(int d){
         Node h = new Node(0);
