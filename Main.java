@@ -1,3 +1,4 @@
+import CtCILibrary.*;
 import java.util.*;
 public class Main {
     public static void main(String [] args){
@@ -95,30 +96,19 @@ public class Main {
         // }
         // boolean b = Chapter2_LinkedList.palindrome(l);
         // System.out.println(b);
-        Node h1 = new Node(-1);
-        h1.addNode(n);
-        h1.addNode(n2);
-        h1.addNode(n4);
-        h1.addNode(n5);
-        h1.addNode(n6);
-        h1.addNode(n7);
-      while( h1 != null){
-            System.out.println(h1.data);
-            h1 = h1.next;
+        n.addNode(n1);
+        n.addNode(n2);
+        n.addNode(n3);
+        n.addNode(n4);
+        n.addNode(n5);
+        n.addNode(n6);
+        n.addNode(n7);
+        n.addNode(n5);
+        Node c = Chapter2_LinkedList.loopDetection(n);
+        if(c != null){
+            System.out.println(c.data);
         }
-        
-        Node h2 = new Node(-2);
-        h2.addNode(n1);
-        h2.addNode(n3);
-        h2.addNode(n4);
-        h2.addNode(n5);
-        h2.addNode(n6);
-        h2.addNode(n7);
-      while( h2 != null){
-            System.out.println(h2.data);
-            h2 = h2.next;
-        }
-        // Node d = Chapter2_LinkedList.intersectingLinkedLists(h1, h2);
+      
 
    
     }

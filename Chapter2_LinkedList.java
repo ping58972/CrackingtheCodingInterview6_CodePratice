@@ -1,3 +1,4 @@
+import CtCILibrary.*;
 import java.util.HashSet;
 import java.util.Stack;
 import java.util.LinkedList;
@@ -297,6 +298,21 @@ public class Chapter2_LinkedList{
         // System.out.println(p.data);
         return null;
  
+    }
+
+    // Question 2.8 Loop Detection: Given a circular linked list, implement an algorithm 
+    // that returns the node at the beginning of the loop.
+    public static Node loopDetection(Node node){
+        Node h = node;
+        Set<Node> set = new HashSet<Node>();
+        while(h != null){
+            if(set.contains(h)){
+                return h;
+            } 
+            set.add(h);
+            h = h.next;
+        }
+        return null;
     } 
 }
 
