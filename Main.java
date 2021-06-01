@@ -1,9 +1,13 @@
-import CtCILibrary.*;
+import CtCILibrary.*; 
 import java.util.*;
 public class Main {
     public static void main(String [] args){
         // chapter1_Array_Stringt();
-        chapter2_LinkedList();    
+        // chapter2_LinkedList();
+        chapter3_stacks_queues();    
+    }
+    public static void chapter3_stacks_queues(){
+        
     }
     // public static void chapter1_Array_Stringt(){
     //    boolean b = Chapter1_Array_String.isUnique_solution("Striign");
@@ -74,14 +78,14 @@ public class Main {
         //     n = n.next;
         // }
 
-        Node n = new Node(0);
-        Node n1 = new Node(1);
-        Node n2 = new Node(2);
-        Node n3 = new Node(3);
-        Node n4 = new Node(4);
-        Node n5 = new Node(5);
-        Node n6 = new Node(6);
-        Node n7 = new Node(7);
+        // Node n = new Node(0);
+        // Node n1 = new Node(1);
+        // Node n2 = new Node(2);
+        // Node n3 = new Node(3);
+        // Node n4 = new Node(4);
+        // Node n5 = new Node(5);
+        // Node n6 = new Node(6);
+        // Node n7 = new Node(7);
         // LinkedList<Node> l = new LinkedList<Node>();
         // l.add(n);
         // l.add(n1);
@@ -96,18 +100,18 @@ public class Main {
         // }
         // boolean b = Chapter2_LinkedList.palindrome(l);
         // System.out.println(b);
-        n.addNode(n1);
-        n.addNode(n2);
-        n.addNode(n3);
-        n.addNode(n4);
-        n.addNode(n5);
-        n.addNode(n6);
-        n.addNode(n7);
-        n.addNode(n5);
-        Node c = Chapter2_LinkedList.loopDetection(n);
-        if(c != null){
-            System.out.println(c.data);
-        }
+        // n.addNode(n1);
+        // n.addNode(n2);
+        // n.addNode(n3);
+        // n.addNode(n4);
+        // n.addNode(n5);
+        // n.addNode(n6);
+        // n.addNode(n7);
+        // n.addNode(n5);
+        // Node c = Chapter2_LinkedList.loopDetection(n);
+        // if(c != null){
+        //     System.out.println(c.data);
+        // }
       
 
    
