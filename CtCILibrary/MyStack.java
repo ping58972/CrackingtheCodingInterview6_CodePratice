@@ -9,7 +9,10 @@ public class MyStack<T> {
     }
     private StackNode<T> top;
     public T pop(){
-        if(top == null) throw new Exception();
+        if(top == null){
+         throw new Exception("hahf");
+        }
+            
         T item = top.data;
         top = top.next;
         return item;
@@ -20,7 +23,9 @@ public class MyStack<T> {
         top = t;
     }
     public T peek() {
-        if(top == null) throw new Exception();
+        if(top == null) {
+         throw new Exception("hahf");
+        }
         return top.data;
     }
     public boolean isEmpty(){

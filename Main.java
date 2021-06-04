@@ -4,11 +4,13 @@ public class Main {
     public static void main(String [] args){
         // chapter1_Array_Stringt();
         // chapter2_LinkedList();
-        chapter3_stacks_queues();    
+        Chapter3_Stacks_Queues.all(); 
+         
     }
-    public static void chapter3_stacks_queues(){
-        
-    }
+    // public static void chapter3_stacks_queues(){
+    //     // Chapter3_Stacks_Queues.threeStacksInOneArray();
+    //     Chapter3_Stacks_Queues.stackMin();
+    // }
     // public static void chapter1_Array_Stringt(){
     //    boolean b = Chapter1_Array_String.isUnique_solution("Striign");
     //    boolean c = Chapter1_Array_String.checkPermutation_Ping("stur", "stru");
