@@ -1,3 +1,4 @@
+import java.util.*;
 public class Chapter3_Stacks_Queues {
     public static void all(){
         // threeStacksInOneArray();
@@ -52,6 +53,47 @@ public class Chapter3_Stacks_Queues {
         // System.out.println(tsioa.peekTwo());
         // System.out.println(tsioa.peekThree());
     }
+}
+
+// Qestion 3.3 Stack of Plates: Imagine a (literal) stack of plates. If the stack gets too high, it might topple.
+// Therefore, in real life, we would likely start a new stack when the previous stack exceeds some threshold.
+class SetOfStacks<T> {
+    private Stack<T> [] stacks;
+    private final int size = 3;
+    private int  i;
+    private int index;
+    public SetOfStacks(){
+        stacks = new Stack<T> [1];
+        index = 0;
+        stacks[index] = new Stack<T>();
+        i = 0;
+    }
+    public void push(T d){
+        if(i >= size){
+            addToNewStack();
+        } else{
+            stacks[index].push(d);
+            i++;
+        }
+        
+    }
+    public T pop(){
+        T d = stacks[index].pop();
+        
+
+    }
+    public void addToNewStack(){
+        int newLength = stacks.length*2;
+        Stack<T> [] newStacks = new Stack<T>[newLength];
+        for(int j=0; j<stacks.length; j++){
+            newStacks[j] = stacks[j];
+        }
+        stacks = newStacks;
+        i =0;
+        index++;
+    }
+
+
 }
 
 // Question 3.2 Stack Min: How would you design a stack which, in addition to push and pop, has a function min
