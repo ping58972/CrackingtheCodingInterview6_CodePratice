@@ -1,10 +1,17 @@
 import CtCILibrary.*; 
 import java.util.*;
+import java.io.*;
 public class Main {
     public static void main(String [] args){
         // chapter1_Array_Stringt();
         // chapter2_LinkedList();
         Chapter3_Stacks_Queues.all(); 
+        // Stack<String> stack = new Stack<String>();
+        // stack.push("4");
+        // stack.push("a");
+        // stack.push("t");
+        // stack.push("u00000");
+        // System.out.println(stack.peek());
          
     }
     // public static void chapter3_stacks_queues(){
