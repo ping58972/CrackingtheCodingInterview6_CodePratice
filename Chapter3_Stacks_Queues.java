@@ -6,7 +6,32 @@ public class Chapter3_Stacks_Queues {
         // stackMin();
         // setOfStacks();
         // queueViaStacks();
-        sortStack();
+        // sortStack();
+        AnimalSelter();
+        
+    }
+    public static void AnimalSelter(){
+        AnimalShelterQueue animalQ = new AnimalShelterQueue();
+        animalQ.enqueue("Cat");
+        animalQ.enqueue("Cat");
+        animalQ.enqueue("Dog");
+        animalQ.enqueue("Cat");
+        animalQ.enqueue("Dog");
+        animalQ.enqueue("Dog");
+        animalQ.enqueue("Cat");
+        animalQ.enqueue("Dog");
+        animalQ.enqueue("Dog");
+        animalQ.enqueue("Cat");
+        Animal a = animalQ.dequeueAny();
+        System.out.println(a);
+        Animal d = animalQ.dequeueDog();
+        System.out.println(d);
+        Animal c = animalQ.dequeueCat();
+        System.out.println(c);
+        Animal a1 = animalQ.dequeueAny();
+        System.out.println(a1);
+        Animal d1 = animalQ.dequeueDog();
+        System.out.println(d1);
     }
     public static void sortStack(){
         Stack<Integer> s = new Stack<Integer>();
@@ -157,6 +182,71 @@ public class Chapter3_Stacks_Queues {
         // System.out.println(tsioa.peekThree());
     }
 }
+
+// Qestion 3.6 Animal Shelter: An animal shelter, which holds only dogs and cats, operates on a strictly"first in, first
+// out" basis. People must adopt either the "oldest" (based on arrival time) of all animals at the shelter,
+// or they can select whether they would prefer a dog or a cat (and will receive the oldest animal of
+// that type). They cannot select which specific animal they would like. Create the data structures to
+// maintain this system and implement operations such as enqueue, dequeueAny, dequeueDog,
+// and dequeueCat. You may use the built-in Linked List data structure.
+class AnimalShelterQueue{
+    private LinkedList<Animal> cats;
+    private LinkedList<Animal> dogs;
+    private int index;
+    public AnimalShelterQueue(){
+        cats = new LinkedList<Animal>();
+        dogs = new LinkedList<Animal>();
+        index = 0;
+    }
+    public void enqueue(String animal){ 
+        if(animal.equals("Cat")){
+            cats.add(new Animal(index, "Cat"));
+        } else {
+            dogs.add(new Animal(index, "Dog"));
+        }
+        index++;
+    }
+    public Animal dequeueCat(){
+        if(cats.size() > 0){
+            return cats.poll();
+        } 
+        return null;
+    }
+    public Animal dequeueDog(){
+        if(dogs.size() > 0){
+            return dogs.poll();
+        } 
+        return null;
+    }
+    public Animal dequeueAny(){
+        if(dogs.size() == 0 ){ 
+            return dequeueCat();
+        } else if( cats.size() == 0){
+            return dequeueDog();
+        }
+        Animal cat = cats.peek();
+        Animal dog = dogs.peek();
+        if(cat.number > dog.number){
+            return dequeueDog();
+        } else {
+            return dequeueCat();
+        }
+    }
+    
+}
+class Animal{
+    String type;
+    int number;
+    public Animal(int num, String t){
+        type = t;
+        number = num;
+    }
+    @Override
+    public String toString(){
+        return "Type: "+ type + " Number: "+ number; 
+    }
+}
+
 
 // Question 3.5 Sort Stack: Write a program to sort a stack such that the smallest items are on the top. 
 // You can use an additional temporary stack, but you may not copy the elements into any other 
