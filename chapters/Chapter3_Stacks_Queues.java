@@ -1,5 +1,9 @@
+package chapters;
+
+import CtCILibrary.*;
 import java.io.*;
 import java.util.*;
+
 public class Chapter3_Stacks_Queues {
     public static void all(){
         // threeStacksInOneArray();
@@ -7,7 +11,7 @@ public class Chapter3_Stacks_Queues {
         // setOfStacks();
         // queueViaStacks();
         // sortStack();
-        AnimalSelter();
+        // AnimalSelter();
         
     }
     public static void AnimalSelter(){

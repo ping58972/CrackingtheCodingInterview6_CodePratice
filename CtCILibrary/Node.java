@@ -22,10 +22,11 @@ public class Node{
         n.next = newNode;
     }
     public void addToHead(int d){
-        Node h = new Node(0);
-        Node t = head;
+        Node h = new Node(d);
+        Node t = this;
         h.next = t;
-        head = h;
+        // head = h;
+        // this = h;
     }
     public void appendToTail(int d){
         Node end = new Node(d);

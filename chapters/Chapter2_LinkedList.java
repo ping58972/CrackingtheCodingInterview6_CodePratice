@@ -1,9 +1,88 @@
-// import CtCILibrary.Node;
-import java.util.HashSet;
-import java.util.Stack;
-import java.util.LinkedList;
+package chapters;
+
+import CtCILibrary.*;
 import java.util.*;
+
 public class Chapter2_LinkedList{
+    public static void all(){
+        //  Node node = new Node(0);
+        // node.appendToTail(1);
+        // node.appendToTail(7);
+        // node.appendToTail(2);
+        // node.appendToTail(9);
+        // node.appendToTail(3);
+        // node.appendToTail(3);
+        // node.appendToTail(2);
+        // node.appendToTail(8);
+        // node.appendToTail(2);
+        // node.appendToTail(4);
+        // node.appendToTail(5);
+        // node.appendToTail(4);
+        // node.appendToTail(1);
+        // node.remove(node, 2);
+        // Node n = removeDups(node);
+        // deleteDups_HashSet(node);
+        
+        // Node nk = kth_last(node, 2);
+        // Node nt = nthToLast(node, 2);
+        // deleteMiddleNode(node);
+        // Node npl = partition_linkedList(node, 5);
+
+        // Node n1 = new Node(7);
+        // n1.appendToTail(3);
+        // n1.appendToTail(6);
+        // Node n2 = new Node(1);
+        // n2.appendToTail(9);
+        // n2.appendToTail(3);
+        // n2.appendToTail(9);
+        // n2.appendToTail(2);
+        // n2.appendToTail(2);
+        // n2.appendToTail(6);
+        // n2.appendToTail(5);
+        // // Node n = sumLists(n1, n2);
+        // Node n = sumLists_reverse(n1, n2);
+        // while( n != null){
+        //     System.out.println(n.data);
+        //     n = n.next;
+        // }
+
+        // Node n = new Node(0);
+        // Node n1 = new Node(1);
+        // Node n2 = new Node(2);
+        // Node n3 = new Node(3);
+        // Node n4 = new Node(4);
+        // Node n5 = new Node(5);
+        // Node n6 = new Node(6);
+        // Node n7 = new Node(7);
+        // LinkedList<Node> l = new LinkedList<Node>();
+        // l.add(n);
+        // l.add(n1);
+        // l.add(n2);
+        // l.add(n3);
+        // // l.add(n2);
+        // l.add(n1);
+        // l.add(n);
+        // Iterator<Node> itr = l.listIterator();
+        // while(itr.hasNext()){
+        //     System.out.println(itr.next().data);
+        // }
+        // boolean b = palindrome(l);
+        // System.out.println(b);
+        // n.addNode(n1);
+        // n.addNode(n2);
+        // n.addNode(n3);
+        // n.addNode(n4);
+        // n.addNode(n5);
+        // n.addNode(n6);
+        // n.addNode(n7);
+        // n.addNode(n5);
+        // Node c = loopDetection(n);
+        // if(c != null){
+        //     System.out.println(c.data);
+        // }
+      
+
+    }
     // Qestion2.1 Remove Dups: Write code to remove duplicates from an unsorted linked list.
     public static Node removeDups_(Node n){
         int [] arr = new int[100];
@@ -336,57 +415,3 @@ public class Chapter2_LinkedList{
     } 
 }
 
-class Node{
-    Node next = null;
-    int data;
-    int length;
-    Node head;
-    Node tail;
-    public Node(){}
-    public Node(int d){
-        data = d;
-        length = 1;
-        head = this;
-        // tail = head;
-        // tail = this;
-    }
-    void addNode(Node newNode){
-        Node n = this;
-        while(n.next != null){
-            n = n.next;
-        }
-        n.next = newNode;
-    }
-    void addToHead(int d){
-        Node h = new Node(0);
-        Node t = head;
-        h.next = t;
-        head = h;
-    }
-    void appendToTail(int d){
-        Node end = new Node(d);
-        Node n = this;
-        length++;
-        while(n.next != null){
-            n = n.next;
-        }
-        n.next = end;
-        // tail = end;
-    }
-    Node remove(Node head, int d){
-        Node n = head;
-        if(n.data == d){
-            length--;
-            return head.next;
-        }
-        while(n.next != null){
-            if(n.next.data == d){
-                n.next = n.next.next;
-                length--;
-                return head;
-            }
-            n = n.next;
-        }
-        return head;
-    }
-}

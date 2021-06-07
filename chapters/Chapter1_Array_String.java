@@ -1,10 +1,38 @@
+package chapters;
+
+import CtCILibrary.*;
 import java.lang.Math;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Set;
-import java.util.HashSet;
+import java.util.*;
 
 public class Chapter1_Array_String{
+
+    public static void all(){
+
+       boolean b = isUnique_solution("Striign");
+       boolean c = checkPermutation_Ping("stur", "stru");
+       String result = urLify("Mr John Smith     ");
+       boolean ppb = palindromePermutation("Tact Coa");
+       boolean ppp = oneAway("pales", "bakes");
+       String pps = stringCompression("aabcccccaaa");
+    int m[][] = new int[][]{{1,2,3,4},{5,6,7,8},{9,10,11,12},{13,14,15,16}};
+       rotateMatrix(m);
+        for(int i=0; i<m.length; i++){
+            for(int j=0; j<m[i].length; j++){
+                System.out.print(m[i][j] +" ");
+            }
+            System.out.println();
+        }
+    // int m[][] = new int[][]{{1,2,3,4},{5,6,7,8},{9,0,11,12},{13,14,0,16}};
+    //    zeroMatrix(m);
+    //     for(int i=0; i<m.length; i++){
+    //         for(int j=0; j<m[i].length; j++){
+    //             System.out.print(m[i][j] +" ");
+    //         }
+    //         System.out.println();
+    //     }
+
+    boolean pp = isSubstringRotation("waterbottle", "bottlewater");
+    }
     //Qestion 1.1
     public static void isUnique(String str){
         int [] testArr = new int[1000];
