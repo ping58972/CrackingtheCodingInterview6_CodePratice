@@ -5,23 +5,23 @@ import java.util.*;
 
 public class Chapter2_LinkedList{
     public static void all(){
-        //  Node node = new Node(0);
-        // node.appendToTail(1);
-        // node.appendToTail(7);
-        // node.appendToTail(2);
-        // node.appendToTail(9);
-        // node.appendToTail(3);
-        // node.appendToTail(3);
-        // node.appendToTail(2);
-        // node.appendToTail(8);
-        // node.appendToTail(2);
-        // node.appendToTail(4);
-        // node.appendToTail(5);
-        // node.appendToTail(4);
-        // node.appendToTail(1);
-        // node.remove(node, 2);
-        // Node n = removeDups(node);
-        // deleteDups_HashSet(node);
+         Node node = new Node(0);
+        node.appendToTail(1);
+        node.appendToTail(7);
+        node.appendToTail(2);
+        node.appendToTail(9);
+        node.appendToTail(3);
+        node.appendToTail(3);
+        node.appendToTail(2);
+        node.appendToTail(8);
+        node.appendToTail(2);
+        node.appendToTail(4);
+        node.appendToTail(5);
+        node.appendToTail(4);
+        node.appendToTail(1);
+        node.remove(node, 2);
+        Node n = removeDups(node);
+        deleteDups_HashSet(node);
         
         // Node nk = kth_last(node, 2);
         // Node nt = nthToLast(node, 2);
