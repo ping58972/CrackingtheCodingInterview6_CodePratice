@@ -46,8 +46,9 @@ public class Chapter4_Trees_Graphs{
         // print_BFS(nn);
         // printBSTNode(nn);
         // System.out.println(nn.right.left.data);
-        int [] array = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15};
-        BSTNode n = createMinimalTree(array);
+        int [] array = {1,2,3,4,5,6,7,8,9,10,11,12,13,14};
+        // BSTNode n = createMinimalTree(array);
+        BSTNode n = createMinimalBST(array);
         print_BFS(n);
         System.out.println();
         printBSTNode(n);
@@ -84,16 +85,7 @@ public class Chapter4_Trees_Graphs{
             createMinimalTree(newLeftArray1, newRightArray1, bstNode);
         }
     }
-  
-    private static void createMinimalTree(int [] sortedArray, BSTNode bstNode){
-        
-        if(sortedArray.length  < 1) return;
-        int [] leftArray = Arrays.copyOfRange(sortedArray, 0, sortedArray.length/2);
-        createBSTNode(bstNode, sortedArray[sortedArray.length / 2]);
-        createMinimalTree(leftArray, bstNode);
-        int [] rightArray = Arrays.copyOfRange(sortedArray, sortedArray.length/2 +1, sortedArray.length);
-        createMinimalTree(rightArray, bstNode);   
-    }
+
     public static void createBSTNode(BSTNode root, int data){
         if( root == null){
             return;
@@ -113,19 +105,7 @@ public class Chapter4_Trees_Graphs{
         }
         
     }
-      private static int [] removeArrayByIndex(int [] arr, int index){
-        if(arr == null || arr.length == 0) return arr;
-        if(index < 0 || index >= arr.length) return arr;
-        int [] newArr = new int[arr.length -1];
-        int j = 0;
-        for(int i=0; i< arr.length; i++){
-            if(i != index){
-                newArr[j] = arr[i];
-                j++;
-            }
-        }
-        return newArr;
-    }
+
     public static void printBSTNode(BSTNode root){
         if(root == null) return;
         printBSTNode(root.left);
@@ -158,7 +138,20 @@ public class Chapter4_Trees_Graphs{
     private static void visit(BSTNode n){
         System.out.print(" "+n.data);
     }
-
+   
+    // Solution from Book.
+    public static BSTNode createMinimalBST(int array[]){
+        return createMinimalBST(array, 0, array.length - 1);
+    }
+    private static BSTNode createMinimalBST(int array[], int start, int end){
+        if(start > end) return null;
+        int mid = (start + end)/2;
+        BSTNode n = new BSTNode(array[mid], null, null);
+        n.left = createMinimalBST(array, start, mid -1);
+        n.right = createMinimalBST(array, mid +1, end);
+        return n;
+    }
+ /***************************************************************** */
     // Question 4.1 Route Between Nodes: Given a directed graph, design an algorithm 
     // to find out whether there is a route between two nodes.
     public static void isRouteBetweenNodes_DFS(Node n1, Node n2){
