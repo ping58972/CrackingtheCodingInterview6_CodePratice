@@ -46,16 +46,70 @@ public class Chapter4_Trees_Graphs{
         // print_BFS(nn);
         // printBSTNode(nn);
         // System.out.println(nn.right.left.data);
-        int [] array = {1,2,3,4,5,6,7,8,9,10,11,12,13,14};
+        int [] array = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15};
         // BSTNode n = createMinimalTree(array);
         BSTNode n = createMinimalBST(array);
-        print_BFS(n);
-        System.out.println();
-        printBSTNode(n);
+        // print_BFS(n);
+        // System.out.println();
+        // printBSTNode(n);
+        ArrayList<LinkedList<BSTNode>> dls = listOfDepths(n);
+        for(LinkedList<BSTNode> ds: dls){
+            for(BSTNode d: ds){
+                System.out.print(" "+ d.data);
+            }
+            System.out.println();
+        }
         // System.out.println();
         // System.out.println(n.right.right.data);
     }
 
+    // Question 4.3 List of Depths: Given a binary tree, design an algorithm which creates a linked list of all the nodes
+    // at each depth (e.g., if you have a tree with depth 0, you'll have 0 linked lists).
+    public static ArrayList<LinkedList<BSTNode>> listOfDepths(BSTNode n){
+        ArrayList<LinkedList<BSTNode>> allb = new ArrayList<LinkedList<BSTNode>>();
+        // listOfDepths_DFS(n, allb, 0);
+        // return allb;
+        return listOfDepths_BFS(n);
+    }
+    private static void listOfDepths_DFS(BSTNode n, ArrayList<LinkedList<BSTNode>> allb, int level ){
+        if(n == null) return;
+        LinkedList<BSTNode> l = null;
+        if(allb.size()== level){
+            l = new LinkedList<BSTNode>(); 
+            allb.add(l);
+        } else {
+            l = allb.get(level);
+        }
+        l.add(n);
+        listOfDepths_DFS(n.left, allb, level+1);
+        listOfDepths_DFS(n.right, allb, level+1);
+    }
+    private static ArrayList<LinkedList<BSTNode>> listOfDepths_BFS(BSTNode bstNode){
+     ArrayList<LinkedList<BSTNode>> allb = new ArrayList<LinkedList<BSTNode>>();
+        LinkedList<BSTNode> current = new LinkedList<BSTNode>();
+        // visit the root or bstNode.
+        if(bstNode != null){
+            current.add(bstNode);
+        }
+        while(current.size() > 0) {
+            allb.add(current); // add previous level.
+            LinkedList<BSTNode> parents = current; // go to next level.
+            current = new LinkedList<BSTNode>();
+            for(BSTNode node: parents){
+                // visit the children.
+                if(node.left != null){
+                    current.add(node.left);
+                }
+                if(node.right != null){
+                    current.add(node.right);
+                }
+            }
+        }
+        return allb;
+    }
+
+
+  
     // Question 4.2 Minimal Tree: Given a sorted (increasing order) array with unique integer elements, write an algorithm
     // to create a binary search tree with minimal height.
     public static BSTNode createMinimalTree(int [] sortedArray){
