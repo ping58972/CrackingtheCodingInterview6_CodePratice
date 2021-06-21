@@ -37,21 +37,21 @@ public class Chapter4_Trees_Graphs{
         // BSTNode n4 = new BSTNode(4, n2, n6);
         // // printBSTNode(n4);
         // print_BFS(n4);
-        BSTNode nn = new BSTNode(4, null, null);
-        createBSTNode(nn, 2);
-        createBSTNode(nn, -1);
-        createBSTNode(nn, 1);
-        createBSTNode(nn, 3);
-        createBSTNode(nn, 6);
-        createBSTNode(nn, 5);
-        createBSTNode(nn, 7);
-        createBSTNode(nn, 10);
-        createBSTNode(nn, 10);
-        createBSTNode(nn, 0);
-        createBSTNode(nn, 0);
-        createBSTNode(nn, 0);
-        createBSTNode(nn, 18);
-        print_BFS(nn);
+        // BSTNode nn = new BSTNode(4, null, null);
+        // createBSTNode(nn, 2);
+        // createBSTNode(nn, -1);
+        // createBSTNode(nn, 1);
+        // createBSTNode(nn, 3);
+        // createBSTNode(nn, 6);
+        // createBSTNode(nn, 5);
+        // createBSTNode(nn, 7);
+        // createBSTNode(nn, 10);
+        // createBSTNode(nn, 10);
+        // createBSTNode(nn, 0);
+        // createBSTNode(nn, 0);
+        // createBSTNode(nn, 0);
+        // createBSTNode(nn, 18);
+        // print_BFS(nn);
         // printBSTNode(nn);
         // System.out.println(nn.right.left.data);
         // int [] array = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15};
@@ -71,10 +71,48 @@ public class Chapter4_Trees_Graphs{
         // System.out.println(n.right.right.data);
         // int h = heightOfBST(n);
         // boolean b = isBSTBalance(nn);
-        boolean b = isBalanced(nn);
-        System.out.println(b);
+        // boolean b = isBalanced(nn);
+        // System.out.println(b);
         // int h = maxHeightBST(nn);
         // System.out.println(h);
+        int[] val = {9};
+        abc(val);
+        System.out.println(val[0]);
+    }
+    public static void abc(int [] val){
+        val[0] = 0;
+    }
+
+    // Question 4.5 Validate BST: Implement a function to check if a binary tree is a binary search tree.
+    // link: https://leetcode.com/problems/validate-binary-search-tree/
+    public static boolean isBinarySearchTree(BTNode node){
+        boolean [] test = new boolean[1];
+        test[0] = true;
+        checkBST(node, test);
+        return test[0];
+    }
+    private int mid_val = Integer.MIN_VALUE;
+    private static void checkBST(BTNode node, boolean [] test){
+        if(node == null) return;
+
+        checkBST(node.left, test);
+        if(node.data <= mid_val){
+            test[0] = false;
+            
+        } else{
+            mid_val = node.data;
+        }
+        checkBST(node.right, test);
+    }
+    //Solution From book.
+    Integer last_printed = null;
+    public boolean isValidBST(TreeNode n) {
+        if(n == null) return true;
+        if(!isValidBST(n.left)) return false;
+        if(last_printed != null && n.val <= last_printed) return false;
+        last_printed = n.val;
+        if(!isValidBST(n.right)) return false;
+        return true;
     }
 
     //Question 4.4 Check Balanced: Implement a function to check if a binary tree is balanced. For the purposes of
@@ -326,7 +364,19 @@ public class Chapter4_Trees_Graphs{
         System.out.print(n);
     }
 }
-
+class BTNode{
+    public int data;
+    public BTNode left;
+    public BTNode right;
+    public BTNode(int data){
+        this.data = data;
+    }
+    public BTNode(int data, BTNode l, BTNode r){
+        this.data = data;
+        left = l;
+        right = r;
+    }
+}
 class BSTNode {
     public int data;
     public BSTNode left;
@@ -363,3 +413,19 @@ class Node {
 class Graph {
     public Node[] nodes;
 }
+
+// From Book
+//  Definition for a binary tree node.
+public class TreeNode {
+      int val;
+      TreeNode left;
+      TreeNode right;
+      TreeNode() {}
+      TreeNode(int val) { this.val = val; }
+      TreeNode(int val, TreeNode left, TreeNode right) {
+          this.val = val;
+          this.left = left;
+          this.right = right;
+      }
+  }
+ 
