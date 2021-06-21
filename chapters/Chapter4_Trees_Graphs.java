@@ -1,6 +1,7 @@
 package chapters;
 
 import java.util.*;
+import java.lang.Math;
 // import CtCILibrary.*;
 
 public class Chapter4_Trees_Graphs{
@@ -36,37 +37,94 @@ public class Chapter4_Trees_Graphs{
         // BSTNode n4 = new BSTNode(4, n2, n6);
         // // printBSTNode(n4);
         // print_BFS(n4);
-        // BSTNode nn = new BSTNode(4, null, null);
-        // createBSTNode(nn, 2);
-        // createBSTNode(nn, 1);
-        // createBSTNode(nn, 3);
-        // createBSTNode(nn, 6);
-        // createBSTNode(nn, 5);
-        // createBSTNode(nn, 7);
-        // print_BFS(nn);
+        BSTNode nn = new BSTNode(4, null, null);
+        createBSTNode(nn, 2);
+        createBSTNode(nn, -1);
+        createBSTNode(nn, 1);
+        createBSTNode(nn, 3);
+        createBSTNode(nn, 6);
+        createBSTNode(nn, 5);
+        createBSTNode(nn, 7);
+        createBSTNode(nn, 10);
+        createBSTNode(nn, 10);
+        createBSTNode(nn, 0);
+        createBSTNode(nn, 0);
+        createBSTNode(nn, 0);
+        createBSTNode(nn, 18);
+        print_BFS(nn);
         // printBSTNode(nn);
         // System.out.println(nn.right.left.data);
-        int [] array = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15};
+        // int [] array = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15};
         // BSTNode n = createMinimalTree(array);
-        BSTNode n = createMinimalBST(array);
+        // BSTNode nn = createMinimalBST(array);
         // print_BFS(n);
         // System.out.println();
         // printBSTNode(n);
-        ArrayList<LinkedList<BSTNode>> dls = listOfDepths(n);
-        for(LinkedList<BSTNode> ds: dls){
-            for(BSTNode d: ds){
-                System.out.print(" "+ d.data);
-            }
-            System.out.println();
-        }
+        // ArrayList<LinkedList<BSTNode>> dls = listOfDepths(nn);
+        // for(LinkedList<BSTNode> ds: dls){
+        //     for(BSTNode d: ds){
+        //         System.out.print(" "+ d.data);
+        //     }
+        //     System.out.println();
+        // }
         // System.out.println();
         // System.out.println(n.right.right.data);
+        // int h = heightOfBST(n);
+        // boolean b = isBSTBalance(nn);
+        boolean b = isBalanced(nn);
+        System.out.println(b);
+        // int h = maxHeightBST(nn);
+        // System.out.println(h);
+    }
+
+    //Question 4.4 Check Balanced: Implement a function to check if a binary tree is balanced. For the purposes of
+    // this question, a balanced tree is defined to be a tree such that the heights of the two subtrees of any
+    // node never differ by more than one.
+    public static boolean isBSTBalance(BSTNode bstNode){
+        boolean [] result = new boolean[1];
+        result[0] = true;
+        isBSTBalance(bstNode, result);
+        return result[0];
+    }
+    private static void isBSTBalance(BSTNode node, boolean [] result){
+        if(node == null) return;
+        int l = maxHeightBST(node.left);
+        int r = maxHeightBST(node.right);
+        if(Math.abs(l-r)>1){
+            result[0] = false;
+        }
+        isBSTBalance(node.left, result);
+        isBSTBalance(node.right, result);
+    }
+    private static int maxHeightBST(BSTNode n){
+        if(n == null) return 0;
+        int l = maxHeightBST(n.left);
+        int r = maxHeightBST(n.right);
+        if(l > r) return l + 1;
+        else return r + 1;
+    }
+    // Best solution from Book.
+    private static boolean isBalanced(BSTNode root){
+        return checkHeight(root) != Integer.MIN_VALUE; 
+    }
+    private static int checkHeight(BSTNode root){
+        if(root==null) return -1;
+
+        int leftHight = checkHeight(root.left);
+        if(leftHight == Integer.MIN_VALUE) return Integer.MIN_VALUE;
+
+        int rightHight = checkHeight(root.right);
+        if(rightHight == Integer.MIN_VALUE) return Integer.MIN_VALUE;
+
+        int height = Math.abs(leftHight - rightHight);
+        if(height > 1) return Integer.MIN_VALUE;
+        else return Math.max(leftHight, rightHight) +1;
     }
 
     // Question 4.3 List of Depths: Given a binary tree, design an algorithm which creates a linked list of all the nodes
     // at each depth (e.g., if you have a tree with depth 0, you'll have 0 linked lists).
     public static ArrayList<LinkedList<BSTNode>> listOfDepths(BSTNode n){
-        ArrayList<LinkedList<BSTNode>> allb = new ArrayList<LinkedList<BSTNode>>();
+        // ArrayList<LinkedList<BSTNode>> allb = new ArrayList<LinkedList<BSTNode>>();
         // listOfDepths_DFS(n, allb, 0);
         // return allb;
         return listOfDepths_BFS(n);
