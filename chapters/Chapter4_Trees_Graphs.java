@@ -2,7 +2,7 @@ package chapters;
 
 import java.util.*;
 import java.lang.Math;
-// import CtCILibrary.*;
+import CtCILibrary.*;
 
 public class Chapter4_Trees_Graphs{
     public static void all(){
@@ -75,12 +75,132 @@ public class Chapter4_Trees_Graphs{
         // System.out.println(b);
         // int h = maxHeightBST(nn);
         // System.out.println(h);
-        int[] val = {9};
-        abc(val);
-        System.out.println(val[0]);
+
+        // int [] array = {1,2,3,4,5,6,7};
+        // TreeNode n = TreeNode.createMinimalBST(array);
+        // TreeNode n3 = n.find(3);
+        // TreeNode successor = inOrderSuccessorBST(n3);
+        // if(successor != null)
+        // System.out.println(successor.data);
+        // TreeNode n4 = n.find(4);
+        // TreeNode nl = findLeftNode(n4);
+        // System.out.println(nl.data);
+        LinkedList<String> projects = new LinkedList<String>();
+        String [] strs = {"a","b","c","d","e","f"};
+        projects.addAll(Arrays.asList(strs));
+        LinkedList<String []> dependencies = new LinkedList<String []>();
+        String [] deps1 = {"a","d"};
+        String [] deps2 = {"f","b"};
+        String [] deps3 = {"b","d"};
+        String [] deps4 = {"f","a"};
+        String [] deps5 = {"d","c"};
+        String [] deps6 = {"c","b"};
+        dependencies.add(deps1);
+        dependencies.add(deps2);
+        dependencies.add(deps3);
+        dependencies.add(deps4);
+        dependencies.add(deps5);
+        // dependencies.add(deps6);
+        Graph g = new Graph();
+        for(String str: projects){
+            g.nodes.add(new Node(str));
+        }
+        for(String [] ds: dependencies){
+            Node t = null;
+            Node h = null;
+            Edge e = null;
+            for(Node n: g.nodes){
+                if(n.name.equals(ds[0])){
+                    t = n;
+                }
+                if(n.name.equals(ds[1])){
+                    h = n;
+                }
+            }
+            
+            e = new Edge(h, t);
+            g.edges.add(e);
+            if(t != null){
+                t.outgoingEdges.add(e);
+            }
+            if(h != null){
+                h.incomingEdges.add(e);
+            }
+            
+        }
+        System.out.println(buildOrder(g));
+
+        
+
     }
-    public static void abc(int [] val){
-        val[0] = 0;
+
+    //Question 4.7 Build Order: You are given a list of projects and a list of dependencies (which is a list of pairs of
+    // projects, where the second project is dependent on the first project). All of a project's dependencies
+    // must be built before the project is. Find a build order that will allow the projects to be built. If there
+    // is no valid build order, return an error.
+    public static LinkedList<Node> buildOrder(Graph g){
+        LinkedList<Node> result = new LinkedList<Node>();
+        LinkedList<Node> list = new LinkedList<Node>();
+        list.addAll(g.nodes);
+        boolean [] cycle = {false};
+        while(!list.isEmpty()){
+            Node n = list.remove();
+            if(n.state == Node.State.BLANK){
+                travelDFS(n, result, cycle);
+            }
+        }
+        if(!cycle[0])
+        return result;
+        // else the Graph has cycle, then return null.
+        else return null;
+    }
+    private static void travelDFS(Node n, LinkedList<Node> result, boolean [] cycle){
+        if(n.state == Node.State.COMPLETE){
+            return;
+        }
+
+        if(!cycle[0]){
+            for(Edge e: n.outgoingEdges){
+                if(e.head.state == Node.State.PARTIAL){
+                    //Mean the Graph has cycle.
+                        cycle[0] = true;
+                        return;
+                    }
+                if(e.head.state == Node.State.BLANK){
+                    e.head.state = Node.State.PARTIAL;
+                    travelDFS(e.head, result, cycle);
+                }
+            }
+        }
+        n.state = Node.State.COMPLETE;
+        result.addFirst(n);
+
+    }
+    
+       
+
+
+    // Question 4.6 Successor: Write an algorithm to find the "next" node (i .e., in-order successor) of a given node in a
+    // binary search tree. You may assume that each node has a link to its parent.
+    public static TreeNode inOrderSuccessorBST(TreeNode n) {
+        if(n == null) return null;
+        if(n.right != null) return findLeftNode(n.right);
+        
+        else {
+                TreeNode q = n;
+                TreeNode x = q.parent;
+                while(x != null && x.left != q){
+                    q = x;
+                    x = x.parent;
+                }
+                return x;
+            }
+    }
+    private static TreeNode findLeftNode(TreeNode n){
+        if(n == null) return null;
+        while(n.left != null) n = n.left;
+        return n;
+
     }
 
     // Question 4.5 Validate BST: Implement a function to check if a binary tree is a binary search tree.
@@ -91,7 +211,7 @@ public class Chapter4_Trees_Graphs{
         checkBST(node, test);
         return test[0];
     }
-    private int mid_val = Integer.MIN_VALUE;
+    private static int mid_val = Integer.MIN_VALUE;
     private static void checkBST(BTNode node, boolean [] test){
         if(node == null) return;
 
@@ -105,15 +225,15 @@ public class Chapter4_Trees_Graphs{
         checkBST(node.right, test);
     }
     //Solution From book.
-    Integer last_printed = null;
-    public boolean isValidBST(TreeNode n) {
-        if(n == null) return true;
-        if(!isValidBST(n.left)) return false;
-        if(last_printed != null && n.val <= last_printed) return false;
-        last_printed = n.val;
-        if(!isValidBST(n.right)) return false;
-        return true;
-    }
+    // Integer last_printed = null;
+    // public boolean isValidBST(TreeNode n) {
+    //     if(n == null) return true;
+    //     if(!isValidBST(n.left)) return false;
+    //     if(last_printed != null && n.val <= last_printed) return false;
+    //     last_printed = n.val;
+    //     if(!isValidBST(n.right)) return false;
+    //     return true;
+    // }
 
     //Question 4.4 Check Balanced: Implement a function to check if a binary tree is balanced. For the purposes of
     // this question, a balanced tree is defined to be a tree such that the heights of the two subtrees of any
@@ -388,18 +508,29 @@ class BSTNode {
         this.right = right;
         this.visited = false;
     }
+    public BSTNode(int data){
+        this.data = data;
+    }
     public BSTNode(){}
 }
 
 class Node {
     public String name;
-    public boolean visited = false;
+    public boolean visited;
+    public enum State {COMPLETE, PARTIAL, BLANK};
+    public State state;
     public Node[] children;
+    public ArrayList<Edge> incomingEdges;
+    public ArrayList<Edge> outgoingEdges;
     private int index;
     public Node(String name){
         this.name = name;
         children = new Node[10];
+        incomingEdges = new ArrayList<Edge>();
+        outgoingEdges = new ArrayList<Edge>();
         index = 0;
+        visited = false;
+        state = State.BLANK;
     }
     public void setChildren(Node n){
         children[index] = n;
@@ -407,25 +538,48 @@ class Node {
     }
     @Override
     public String toString(){
-        return "Name: "+ name;
+        return ""+ name;
+        // + " Incoming "+ incomingEdges+" outgoingEdges "+ outgoingEdges;
+    }
+}
+class Edge {
+    public Node head;
+    public Node tail;
+    public Edge(Node h, Node t){
+        head = h;
+        tail = t;
+    }
+    public Edge(){}
+    @Override
+    public String toString(){
+        return ""+tail+ " -> " + head;
     }
 }
 class Graph {
-    public Node[] nodes;
+    public ArrayList<Node> nodes;
+    public ArrayList<Edge> edges;
+    public Graph(){
+        nodes = new ArrayList<Node>();
+        edges = new ArrayList<Edge>();
+    }
+    @Override
+    public String toString(){
+        return "nodes: "+nodes+ "\nedges " + edges;
+    }
 }
 
 // From Book
 //  Definition for a binary tree node.
-public class TreeNode {
-      int val;
-      TreeNode left;
-      TreeNode right;
-      TreeNode() {}
-      TreeNode(int val) { this.val = val; }
-      TreeNode(int val, TreeNode left, TreeNode right) {
-          this.val = val;
-          this.left = left;
-          this.right = right;
-      }
-  }
+// class TreeNode {
+//       int val;
+//       TreeNode left;
+//       TreeNode right;
+//       TreeNode() {}
+//       TreeNode(int val) { this.val = val; }
+//       TreeNode(int val, TreeNode left, TreeNode right) {
+//           this.val = val;
+//           this.left = left;
+//           this.right = right;
+//       }
+//   }
  
