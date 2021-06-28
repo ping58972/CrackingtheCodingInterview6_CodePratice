@@ -85,6 +85,10 @@ public class Chapter4_Trees_Graphs{
         // TreeNode n4 = n.find(4);
         // TreeNode nl = findLeftNode(n4);
         // System.out.println(nl.data);
+
+
+        /*******Testing for Question 4.7 
+        // Begining
         LinkedList<String> projects = new LinkedList<String>();
         String [] strs = {"a","b","c","d","e","f"};
         projects.addAll(Arrays.asList(strs));
@@ -129,10 +133,66 @@ public class Chapter4_Trees_Graphs{
             
         }
         System.out.println(buildOrder(g));
+        //End......
+        ***************** */
+        /*****Testing for Question 4.8
+        https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/submissions/
+        ** */
 
         
 
     }
+
+    // Question 4.8 First Common Ancestor: Design an algorithm and write code to find the first common ancestor
+    // of two nodes in a binary tree. Avoid storing additional nodes in a data structure. NOTE: This is not
+    // necessarily a binary search tree.
+    public static BTNode lowestCommonAncestor(BTNode root, BTNode p, BTNode q) {
+        BTNode [] result = new BTNode[1];
+        lowestCommonAncestor(root, p, q, result);
+        return result[0];
+    }
+    public void lowestCommonAncestor(BTNode root, BTNode p, BTNode q, BTNode[] result) {
+        if(root == null) return;
+        if(root.data == p.data){
+            result[0] = p;
+            return;
+        } else if( root.data == q.data){
+            result[0] = q;
+            return;
+        }
+        TreeNode n = root;
+        boolean[] hasPQL = {false, false};
+        boolean[] hasPQR = {false, false};
+        travelDFS(n.left, p, q, hasPQL);
+        travelDFS(n.right, p, q, hasPQR);
+        if(hasPQL[0] && !hasPQL[1] && !hasPQR[0] && hasPQR[1]){
+            result[0] = root;
+            return;
+        }
+        else if(!hasPQL[0] && hasPQL[1] && hasPQR[0] && !hasPQR[1]){
+            result[0] = root;
+            return;
+        }
+        else if(hasPQL[0] && hasPQL[1]){
+            lowestCommonAncestor(root.left, p, q, result); 
+        }
+        else if(hasPQR[0] && hasPQR[1]){
+            lowestCommonAncestor(root.right, p, q, result);
+        }
+    }
+    public void travelDFS(TreeNode root, TreeNode p, TreeNode q, boolean[] hasPQ){
+        if(root == null) return;
+          if(root.data == p.data){
+            hasPQ[0] = true;
+        }
+        if(root.data == q.data){
+            hasPQ[1] = true;
+        }
+        travelDFS(root.left, p, q, hasPQ);
+        travelDFS(root.right, p, q, hasPQ);
+      
+    }
+}
 
     //Question 4.7 Build Order: You are given a list of projects and a list of dependencies (which is a list of pairs of
     // projects, where the second project is dependent on the first project). All of a project's dependencies
