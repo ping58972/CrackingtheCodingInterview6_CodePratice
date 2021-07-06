@@ -151,7 +151,7 @@ public class Chapter4_Trees_Graphs{
 		}
 		System.out.println(allSeq.size());
         ************************************/
-        /**Testing for Question 4.10 */
+        /*****Testing for Question 4.10 ************
         // t2 is a subtree of t1
 		int[] array1 = {1, 2, 1, 3, 1, 1, 5};
 		int[] array2 = {2, 3, 1};
@@ -167,53 +167,153 @@ public class Chapter4_Trees_Graphs{
 
 		// t4 is not a subtree of t3
 		// int[] array3 = {1, 2, 1, 3, 1, 1};
-        int[] array3 = {1, 2, 1, 3, 1, 1, 5};
-		int[] array4 = {1,1,5};
-		TreeNode t3 = AssortedMethods.createTreeFromArray(array3);
-		TreeNode t4 = AssortedMethods.createTreeFromArray(array4);
-        t3.print();
-        t4.print();
+        // int[] array3 = {1, 2, 1, 3, 1, 1, 5};
+		// int[] array4 = {1,1,5};
+		// TreeNode t3 = AssortedMethods.createTreeFromArray(array3);
+		// TreeNode t4 = AssortedMethods.createTreeFromArray(array4);
+        // t3.print();
+        // t4.print();
 
-		if (checkSubtree(t3, t4)) {
-			System.out.println("t4 is a subtree of t3");
-		} else {
-			System.out.println("t4 is not a subtree of t3");
-		}
+		// if (checkSubtree(t3, t4)) {
+		// 	System.out.println("t4 is a subtree of t3");
+		// } else {
+		// 	System.out.println("t4 is not a subtree of t3");
+		// }
+        ********************/
+
+         /*****Testing for Question 4.12 ************/
+      /*   TreeNode root = new TreeNode(-7);
+		root.left = new TreeNode(-7);
+		root.left.right = new TreeNode(1);
+		root.left.right.left = new TreeNode(2);
+		root.right = new TreeNode(7);
+		root.right.left = new TreeNode(3);
+		root.right.right = new TreeNode(20);
+		root.right.right.left = new TreeNode(0);
+		root.right.right.left.left = new TreeNode(-3);
+		root.right.right.left.left.right = new TreeNode(2);
+		root.right.right.left.left.right.left = new TreeNode(1);
+        // root.print();
+		System.out.println(countPathsWithSum(root, 3)); */
+
+        	
+		TreeNode root = new TreeNode(5);
+		root.left = new TreeNode(3);		
+		root.right = new TreeNode(1);
+		root.left.left = new TreeNode(-8);
+		root.left.right = new TreeNode(8);
+		root.right.left = new TreeNode(2);
+		root.right.right = new TreeNode(6);	
+        root.print();
+		System.out.println(countPathsWithSum(root, 8));
+
+        // TreeNode root = new TreeNode(0);
+		// root.left = new TreeNode(0);
+		// root.right = new TreeNode(0);
+		// root.right.left = new TreeNode(0);
+		// root.right.left.right = new TreeNode(0);
+		// root.right.right = new TreeNode(0);
+		// System.out.println(countPathsWithSum(root, 0));
+		// System.out.println(countPathsWithSum(root, 4));
     }
 
     // Question 4.12 Paths with Sum: You are given a binary tree in which each node contains an integer value (which
     // might be positive or negative). Design an algorithm to count the number of paths that sum to a
     // given value. The path does not need to start or end at the root or a leaf, but it must go downwards
     // (traveling only from parent nodes to child nodes).
-    public static int countPathsSum(TreeNode root, int targetSum){
-        
+    public static int countPathsWithSum(TreeNode root, int targetSum){
+        return countSum(root, targetSum, 0, new Hashtable<Integer, Integer>());
     }
+    private static int countSum(TreeNode root, int targetSum, int runnigSum, Hashtable<Integer, Integer> pathCounts){
+        if(root == null) return 0;
+        runnigSum += root.data;
+        int sum = runnigSum - targetSum;
+        int count = pathCounts.getOrDefault(sum, 0);
+        if(runnigSum == targetSum){
+            count++;
+        }
+        putIncreaseTable(runnigSum, pathCounts, 1);
+        count += countSum(root.left, targetSum, runnigSum, pathCounts);
+        count += countSum(root.right, targetSum, runnigSum, pathCounts);
+        putIncreaseTable(runnigSum, pathCounts, -1);
+        return count;
+    }
+    private static void putIncreaseTable(int runnigSum, Hashtable<Integer, Integer> pathCounts, int d){
+        int newCount = pathCounts.getOrDefault(runnigSum, 0) + d;
+        if(newCount == 0){
+            pathCounts.remove(runnigSum);
+        } else {
+            pathCounts.put(runnigSum, newCount);
+        }
+    }
+
+
+/*     public static int countPathsWithSum(TreeNode root, int targetSum){
+        if(root == null) return 0;
+        int mid = countPathsWithSumNode(root, targetSum, 0);
+        int left = countPathsWithSum(root.left, targetSum);
+        int right = countPathsWithSum(root.right, targetSum);
+        return mid + left + right;
+    } 
+    public static int countPathsWithSumNode(TreeNode root, int targetSum, int sum){
+        if(root == null) return 0;
+        sum += root.data;
+        int count = 0;
+        if(sum == targetSum){
+            count ++;
+        }
+        int left = countPathsWithSumNode(root.left, targetSum, sum);
+        int right = countPathsWithSumNode(root.right, targetSum, sum);
+        return left + right + count;
+    } */
+ /*    public static int countPathsWithSum(TreeNode root, int targetSum){
+        int [] count = {0};
+        travelCount(root, targetSum, count);
+        return count[0];
+    }
+    private static void travelCount(TreeNode root, int targetSum, int [] count){
+        if(root == null) return;
+        int [] sum = {0};
+        countSum(root, targetSum, count, sum);
+        travelCount(root.left, targetSum, count);
+        travelCount(root.right, targetSum, count);
+    }
+    private static void countSum(TreeNode root, int targetSum, int [] count, int [] sum){
+        if(root == null) return;
+        sum[0] += root.data;
+        if(sum[0] == targetSum){
+            count[0]++;
+        }
+        countSum(root.left, targetSum, count, sum);
+        countSum(root.right, targetSum, count, sum);
+        sum[0] -= root.data;
+    } */
 
     // Question 4.10 Check Subtree: Tl and T2 are two very large binary trees, with Tl much bigger than T2. Create an
     // algorithm to determine if T2 is a subtree of Tl. A tree T2 is a subtree ofTi if there exists a node n in Ti such that the subtree of n is identical to T2.
     // That is, if you cut off the tree at node n, the two trees would be identical.
-    public static boolean checkSubtree(TreeNode t1, TreeNode t2){
-        if(t2 == null) return true;
-        return subtree(t1, t2);
-    }
-    private static boolean subtree(TreeNode t1, TreeNode t2){
-        if(t1 == null) return false;
-        if(t1.data == t2.data && preorderCheckSubtree(t1, t2))
-            return true;
-        return subtree(t1.left, t2) ||
-                subtree(t1.right, t2);
-    }
-    private static boolean preorderCheckSubtree(TreeNode t1, TreeNode t2){
-        if(t1 == null && t2 == null) return true;
-        else if(t2 == null || t1 == null )
-            return false;
-        else if( t1.data != t2.data)
-            return false;
-        else
-            return 
-                preorderCheckSubtree(t1.left, t2.left) &&
-                preorderCheckSubtree(t1.right, t2.right);
-    }
+    // public static boolean checkSubtree(TreeNode t1, TreeNode t2){
+    //     if(t2 == null) return true;
+    //     return subtree(t1, t2);
+    // }
+    // private static boolean subtree(TreeNode t1, TreeNode t2){
+    //     if(t1 == null) return false;
+    //     if(t1.data == t2.data && preorderCheckSubtree(t1, t2))
+    //         return true;
+    //     return subtree(t1.left, t2) ||
+    //             subtree(t1.right, t2);
+    // }
+    // private static boolean preorderCheckSubtree(TreeNode t1, TreeNode t2){
+    //     if(t1 == null && t2 == null) return true;
+    //     else if(t2 == null || t1 == null )
+    //         return false;
+    //     else if( t1.data != t2.data)
+    //         return false;
+    //     else
+    //         return 
+    //             preorderCheckSubtree(t1.left, t2.left) &&
+    //             preorderCheckSubtree(t1.right, t2.right);
+    // }
 
     // public static boolean checkSubtree(TreeNode t1, TreeNode t2){
     //     StringBuilder t1Str = new StringBuilder();
@@ -240,50 +340,50 @@ public class Chapter4_Trees_Graphs{
     // Question 4.9 BST Sequences: A binary search tree was created by traversing through an array from left to right
     // and inserting each element. Given a binary search tree with distinct elements, print all possible
     // arrays that could have led to this tree.
-    public static ArrayList<LinkedList<Integer>> allSequences(TreeNode node){
-        ArrayList<LinkedList<Integer>> result = new ArrayList<LinkedList<Integer>>();
-        if(node == null) {
-            result.add(new LinkedList<Integer>());
-            return result;
-        }
-        LinkedList<Integer> prefix = new LinkedList<Integer>();
-        prefix.add(node.data);
+    // public static ArrayList<LinkedList<Integer>> allSequences(TreeNode node){
+    //     ArrayList<LinkedList<Integer>> result = new ArrayList<LinkedList<Integer>>();
+    //     if(node == null) {
+    //         result.add(new LinkedList<Integer>());
+    //         return result;
+    //     }
+    //     LinkedList<Integer> prefix = new LinkedList<Integer>();
+    //     prefix.add(node.data);
 
-        ArrayList<LinkedList<Integer>> leftSeq = allSequences(node.left);
-        ArrayList<LinkedList<Integer>> rightSeq = allSequences(node.right);
+    //     ArrayList<LinkedList<Integer>> leftSeq = allSequences(node.left);
+    //     ArrayList<LinkedList<Integer>> rightSeq = allSequences(node.right);
         
-        for(LinkedList<Integer> left: leftSeq){
-            for (LinkedList<Integer> right: rightSeq){
-                ArrayList<LinkedList<Integer>> weaved = new ArrayList<LinkedList<Integer>>();
-                weaveLists(left, right, weaved, prefix);
-                result.addAll(weaved);
-            }
-        }
-        return result;
-    }
-    private static void weaveLists(LinkedList<Integer> first, LinkedList<Integer> second, 
-            ArrayList<LinkedList<Integer>> results, LinkedList<Integer> prefix){
-        if(first.size() == 0 || second.size()==0){
-            LinkedList<Integer> result = (LinkedList<Integer>) prefix.clone();
-            result.addAll(first);
-            result.addAll(second);
-            results.add(result);
-            return;
-        }
-        int headFirst = first.removeFirst();
-        prefix.addLast(headFirst);
-        weaveLists(first, second, results, prefix);
-        prefix.removeLast();
-        first.addFirst(headFirst);
+    //     for(LinkedList<Integer> left: leftSeq){
+    //         for (LinkedList<Integer> right: rightSeq){
+    //             ArrayList<LinkedList<Integer>> weaved = new ArrayList<LinkedList<Integer>>();
+    //             weaveLists(left, right, weaved, prefix);
+    //             result.addAll(weaved);
+    //         }
+    //     }
+    //     return result;
+    // }
+    // private static void weaveLists(LinkedList<Integer> first, LinkedList<Integer> second, 
+    //         ArrayList<LinkedList<Integer>> results, LinkedList<Integer> prefix){
+    //     if(first.size() == 0 || second.size()==0){
+    //         LinkedList<Integer> result = (LinkedList<Integer>) prefix.clone();
+    //         result.addAll(first);
+    //         result.addAll(second);
+    //         results.add(result);
+    //         return;
+    //     }
+    //     int headFirst = first.removeFirst();
+    //     prefix.addLast(headFirst);
+    //     weaveLists(first, second, results, prefix);
+    //     prefix.removeLast();
+    //     first.addFirst(headFirst);
 
-        int headSecond = second.removeFirst();
-        prefix.addLast(headSecond);
-        weaveLists(first, second, results, prefix);
-        prefix.removeLast();
-        second.addFirst(headSecond);
+    //     int headSecond = second.removeFirst();
+    //     prefix.addLast(headSecond);
+    //     weaveLists(first, second, results, prefix);
+    //     prefix.removeLast();
+    //     second.addFirst(headSecond);
 
         
-    }
+    // }
 
     // public static ArrayList<ArrayList<Integer>> BSTSequences(BSTNode bstNode){
     //     int r = bstNode.data;
