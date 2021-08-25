@@ -42,11 +42,132 @@ public class Chapter8_RecursionAndDP {
     // System.out.print("" + powerSet(set));
 
     // 8.5
-    int n = 10;
-    int m = 9;
-    int ans = recursiveMultiply(n, m);
-    System.out.println(ans == (n * m));
+    // int n = 10;
+    // int m = 9;
+    // int ans = recursiveMultiply(n, m);
+    // System.out.println(ans == (n * m));
 
+    // 8.6
+    // Stack<Integer> s1 = new Stack<>();
+    // Stack<Integer> s2 = new Stack<>();
+    // Stack<Integer> s3 = new Stack<>();
+    // s1.add(9);
+    // s1.add(8);
+    // s1.add(7);
+    // s1.add(6);
+    // s1.add(5);
+    // s1.add(4);
+    // s1.add(3);
+    // s1.add(2);
+    // s1.add(1);
+
+    // System.out.println(s1);
+    // hanoiTowers(s1, s2, s3);
+    // System.out.println(s2);
+    // System.out.println(s3);
+
+    // 8.7
+    String str = "aabcc";
+    List<StringBuilder> l = permutationsWithoutDups(str);
+    System.out.println(l);
+    // 8.8
+    // String str = "aaacd";
+    Set<String> s = permutationsWithDups(str);
+    System.out.println(s);
+  }
+
+  /**
+   * 8.8 Permutations with Dups: Write a method to compute all permutations of a
+   * string whose characters are not necessarily unique. The list of permutations
+   * should not have duplicates.
+   * 
+   * @param str
+   * @return
+   */
+  public static Set<String> permutationsWithDups(String str) {
+    if (str == "" || str == null)
+      return null;
+    StringBuilder strb = new StringBuilder(str);
+    Set<StringBuilder> setSB = permutationsWD(strb);
+    Set<String> setS = new HashSet<>();
+    for (StringBuilder sb : setSB) {
+      setS.add(sb.toString());
+    }
+    return setS;
+  }
+
+  private static Set<StringBuilder> permutationsWD(StringBuilder strb) {
+    Set<StringBuilder> set;
+    if (strb.length() == 1) {
+      set = new HashSet<>();
+      set.add(strb);
+    }
+    if (strb.length() == 2) {
+      set = new HashSet<>();
+      StringBuilder sb1 = new StringBuilder(strb);
+      set.add(sb1);
+      StringBuilder sb2 = new StringBuilder();
+      sb2.append(strb.charAt(1));
+      sb2.append(strb.charAt(0));
+      set.add(sb2);
+      return set;
+    }
+    char c = strb.charAt(strb.length() - 1);
+    strb.deleteCharAt(strb.length() - 1);
+    set = permutationsWD(strb);
+    Set<StringBuilder> ss = new HashSet<>();
+    for (StringBuilder s : set) {
+      StringBuilder sb = new StringBuilder(s);
+      for (int j = 0; j <= s.length(); j++) {
+        sb.insert(j, c);
+        ss.add(sb);
+        sb = new StringBuilder(s);
+      }
+    }
+    return ss;
+
+  }
+
+  /**
+   * 8.7 Permutations without Dups: Write a method to compute all permutations of
+   * a string of unique characters.
+   */
+  public static List<StringBuilder> permutationsWithoutDups(String str) {
+    if (str == "" || str == null)
+      return null;
+    StringBuilder strb = new StringBuilder(str);
+    return permutations(strb);
+  }
+
+  private static List<StringBuilder> permutations(StringBuilder strb) {
+    List<StringBuilder> list;
+    if (strb.length() == 1) {
+      list = new ArrayList<>();
+      list.add(strb);
+      return list;
+    } else if (strb.length() == 2) {
+      list = new ArrayList<>();
+      StringBuilder sb1 = new StringBuilder(strb);
+      list.add(sb1);
+      StringBuilder sb2 = new StringBuilder();
+      sb2.append(strb.charAt(1));
+      sb2.append(strb.charAt(0));
+      list.add(sb2);
+      return list;
+    }
+    char c = strb.charAt(strb.length() - 1);
+    strb.deleteCharAt(strb.length() - 1);
+    list = permutations(strb);
+    List<StringBuilder> l = new ArrayList<>();
+    for (int i = 0; i < list.size(); i++) {
+      StringBuilder sb = new StringBuilder(list.get(i));
+      for (int j = 0; j <= list.get(i).length(); j++) {
+        sb.insert(j, c);
+        l.add(sb);
+        sb = new StringBuilder(list.get(i));
+      }
+    }
+    return l;
   }
 
   /**
@@ -130,9 +251,9 @@ public class Chapter8_RecursionAndDP {
   }
 
   /**
-   * Magic Index: A magic index in an array A [e ... n -1] is defined to be an
-   * index such that A[ i] = i. Given a sorted array of distinct integers, write a
-   * method to find a magic index, if one exists, in array A.
+   * Question 8.3 Magic Index: A magic index in an array A [e ... n -1] is defined
+   * to be an index such that A[ i] = i. Given a sorted array of distinct
+   * integers, write a method to find a magic index, if one exists, in array A.
    */
   public static int magicIndex(int[] arr) {
     // return magicIndex(arr, 0, arr.length - 1);
@@ -178,7 +299,7 @@ public class Chapter8_RecursionAndDP {
   }
 
   /**
-   * Power Set: Write a method to return all subsets of a set.
+   * Question 8.4 Power Set: Write a method to return all subsets of a set.
    */
   public static Set<Set<Character>> powerSet(Set<Character> set) {
     Set<Set<Character>> totalSubset = new HashSet<Set<Character>>();
@@ -203,9 +324,10 @@ public class Chapter8_RecursionAndDP {
   }
 
   /**
-   * Recursive Multiply: Write a recursive function to multiply two positive
-   * integers without using the operator. You can use addition, subtraction, and
-   * bit shifting, but you should minimize the number of those operations.
+   * Question 8.5 Recursive Multiply: Write a recursive function to multiply two
+   * positive integers without using the operator. You can use addition,
+   * subtraction, and bit shifting, but you should minimize the number of those
+   * operations.
    * 
    * @param m int
    * @param n int
@@ -225,6 +347,47 @@ public class Chapter8_RecursionAndDP {
     } else
       return recursiveMultiply_helper(s >> 1, b) + recursiveMultiply_helper(s >> 1, b);
   }
+
+  /**
+   * Question 8.6 Towers of Hanoi: In the classic problem of the Towers of Hanoi,
+   * you have 3 towers and N disks of different sizes which can slide onto any
+   * tower. The puzzle starts with disks sorted in ascending order of size from
+   * top to bottom (Le., each disk sits on top of an even larger one). You have
+   * the following constraints: (1) Only one disk can be moved at a time. (2) A
+   * disk is slid off the top of one tower onto another tower. (3) A disk cannot
+   * be placed on top of a smaller disk. Write a program to move the disks from
+   * the first tower to the last using stacks.
+   */
+  public static void hanoiTowers(Stack<Integer> s1, Stack<Integer> s2, Stack<Integer> s3) {
+
+    int size = s1.size();
+    hanoiTowers(size, s1, s2, s3);
+
+  }
+
+  private static void hanoiTowers(int size, Stack<Integer> s1, Stack<Integer> s2, Stack<Integer> s3) {
+    if (size == 0)
+      return;
+    else if (size == 1) {
+      Integer e = s1.pop();
+      s3.add(e);
+      return;
+    } else if (size == 2) {
+      Integer e1 = s1.pop();
+      s2.add(e1);
+      Integer e2 = s1.pop();
+      s3.add(e2);
+      e1 = s2.pop();
+      s3.add(e1);
+      return;
+    }
+    hanoiTowers(size - 1, s1, s3, s2);
+    Integer e3 = s1.pop();
+    s3.add(e3);
+    hanoiTowers(size - 1, s2, s1, s3);
+    return;
+  }
+
 }
 
 class Point {
