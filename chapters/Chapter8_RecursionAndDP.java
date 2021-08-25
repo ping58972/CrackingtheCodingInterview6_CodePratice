@@ -67,13 +67,58 @@ public class Chapter8_RecursionAndDP {
     // System.out.println(s3);
 
     // 8.7
-    String str = "aabcc";
-    List<StringBuilder> l = permutationsWithoutDups(str);
-    System.out.println(l);
+    // String str = "aabcc";
+    // List<StringBuilder> l = permutationsWithoutDups(str);
+    // System.out.println(l);
     // 8.8
     // String str = "aaacd";
-    Set<String> s = permutationsWithDups(str);
-    System.out.println(s);
+    // Set<String> s = permutationsWithDups(str);
+    // System.out.println(s);
+
+    // 8.9
+    printAllParens(3);
+
+  }
+
+  /**
+   * 8.9 Parens: Implement an algorithm to print all valid (e.g., properly opened
+   * and closed) combinations of n pairs of parentheses.
+   * 
+   * @param n int
+   * @return void
+   */
+  public static void printAllParens(int n) {
+    if (n == 0) {
+      System.out.print("");
+      return;
+    }
+    if (n == 1) {
+      System.out.print("()");
+      return;
+    }
+    Set<String> ans = allParens(n);
+    System.out.print(ans);
+  }
+
+  private static Set<String> allParens(int n) {
+    Set<String> set;
+    if (n == 2) {
+      set = new HashSet<>();
+      set.add("()()");
+      set.add("(())");
+      return set;
+    }
+    set = allParens(n - 1);
+    Set<String> s = new HashSet<>();
+    for (String str : set) {
+      StringBuilder strb = new StringBuilder(str);
+      for (int i = 0; i < strb.length(); i++) {
+        strb.insert(i, "()");
+        s.add(strb.toString());
+        strb = new StringBuilder(str);
+      }
+    }
+    return s;
   }
 
   /**
@@ -82,7 +127,7 @@ public class Chapter8_RecursionAndDP {
    * should not have duplicates.
    * 
    * @param str
-   * @return
+   * @return set<String>
    */
   public static Set<String> permutationsWithDups(String str) {
     if (str == "" || str == null)
