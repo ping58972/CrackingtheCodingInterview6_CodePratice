@@ -1,3 +1,7 @@
+/**
+ * Solution on book and leetcode website: 
+ * https://leetcode.com/discuss/general-discussion/1152824/cracking-the-coding-interview-6th-edition-in-leetcode
+ */
 package chapters;
 
 import java.util.*;
@@ -76,9 +80,115 @@ public class Chapter8_RecursionAndDP {
     // System.out.println(s);
 
     // 8.9
-    printAllParens(3);
+    // printAllParens(3);
+
+    // 8.12 from book solution
+    eightQueens(8);
 
   }
+
+  /**
+   * Eight Queens: Write an algorithm to print all ways of arranging eight queens
+   * on an 8x8 chess board so that none of them share the same row, column, or
+   * diagonal. In this case, "diagonal" means all diagonals, not just the two that
+   * bisect the board.
+   * 
+   * @param n
+   * @return
+   */
+  public static void eightQueens(int n) { // 3 < n < 9;
+    ArrayList<Integer[]> results = new ArrayList<Integer[]>();
+    Integer[] columns = new Integer[n];
+    clear(columns, n);
+    placeQueens(0, columns, results, n);
+    printBoards(results, n);
+    System.out.println(results.size());
+
+  }
+
+  //////
+  // public static int n = 5;
+
+  /*
+   * Check if (row1, column1) is a valid spot for a queen by checking if there is
+   * a queen in the same column or diagonal. We don't need to check it for queens
+   * in the same row because the calling placeQueen only attempts to place one
+   * queen at a time. We know this row is empty.
+   */
+  public static boolean checkValid(Integer[] columns, int row1, int column1) {
+    for (int row2 = 0; row2 < row1; row2++) {
+      int column2 = columns[row2];
+      /* Check if (row2, column2) invalidates (row1, column1) as a queen spot. */
+
+      /* Check if rows have a queen in the same column */
+      if (column1 == column2) {
+        return false;
+      }
+
+      /*
+       * Check diagonals: if the distance between the columns equals the distance
+       * between the rows, then they’re in the same diagonal.
+       */
+      int columnDistance = Math.abs(column2 - column1);
+      int rowDistance = row1 - row2; // row1 > row2, so no need to use absolute value
+      if (columnDistance == rowDistance) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  public static void placeQueens(int row, Integer[] columns, ArrayList<Integer[]> results, int n) {
+    if (row == n) { // Found valid placement
+      results.add(columns.clone());
+    } else {
+      for (int col = 0; col < n; col++) {
+        if (checkValid(columns, row, col)) {
+          columns[row] = col; // Place queen
+          placeQueens(row + 1, columns, results, n);
+        }
+      }
+    }
+  }
+
+  public static void clear(Integer[] columns, int n) {
+    for (int i = 0; i < n; i++) {
+      columns[i] = -1;
+    }
+  }
+
+  public static void printBoard(Integer[] columns, int n) {
+    drawLine(n);
+    for (int i = 0; i < n; i++) {
+      System.out.print("|");
+      for (int j = 0; j < n; j++) {
+        if (columns[i] == j) {
+          System.out.print("Q|");
+        } else {
+          System.out.print(" |");
+        }
+      }
+      System.out.print("\n");
+      drawLine(n);
+    }
+    System.out.println("");
+  }
+
+  private static void drawLine(int n) {
+    StringBuilder line = new StringBuilder();
+    for (int i = 0; i < n * 2 + 1; i++)
+      line.append('-');
+    System.out.println(line.toString());
+  }
+
+  public static void printBoards(ArrayList<Integer[]> boards, int n) {
+    for (int i = 0; i < boards.size(); i++) {
+      Integer[] board = boards.get(i);
+      printBoard(board, n);
+    }
+  }
+
+  ///////
 
   /**
    * 8.11 Coins: Given an innnite number of quarters (25 cents), dimes (10 cents),
