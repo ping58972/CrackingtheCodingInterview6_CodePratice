@@ -81,6 +81,27 @@ public class Chapter8_RecursionAndDP {
   }
 
   /**
+   * 8.11 Coins: Given an innnite number of quarters (25 cents), dimes (10 cents),
+   * nickels (5 cents), and pennies (1 cent), write code to calculate the number
+   * of ways of representing n cents.
+   */
+  public static int calculateCoinsRepresentingWays(int n) {
+    return 0;
+    // see book's solution and leetcode solution web
+  }
+
+  /**
+   * 8.10 Paint Fill: Implement the "paint nil" function that one might see on
+   * many image editing programs. That is, given a screen (represented by a
+   * two-dimensional array of colors), a point, and a new color, nil in the
+   * surrounding area until the color changes from the original color.
+   */
+  public static int[][] paintFill(int[][] image) {
+    // see the solution 8.10.
+    return null;
+  }
+
+  /**
    * 8.9 Parens: Implement an algorithm to print all valid (e.g., properly opened
    * and closed) combinations of n pairs of parentheses.
    * 
