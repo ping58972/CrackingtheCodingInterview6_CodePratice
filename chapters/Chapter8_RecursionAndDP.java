@@ -83,9 +83,159 @@ public class Chapter8_RecursionAndDP {
     // printAllParens(3);
 
     // 8.12 from book solution
-    eightQueens(8);
+    // eightQueens(8);
+
+    // 10.4
+    // int[] array = { 1, 2, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 16, 18 };
+    // Listy list = new Listy(array);
+    // for (int a : array) {
+    // System.out.println(SortedSearchNoSize(list, a));
+    // }
+    // System.out.println(SortedSearchNoSize(list, 20));
+    // System.out.println(SortedSearchNoSize(list, 3));
+
+    // 10.5
+    // String[] stringList = { "apple", "", "", "banana", "", "", "", "carrot",
+    // "duck", "", "", "eel", "", "flower" };
+    // System.out.println(sparseSearch(stringList, "el"));
+    // for (String s : stringList) {
+    // if (s.isEmpty())
+    // continue;
+    // String cloned = new String(s);
+    // System.out.println("<" + cloned + "> " + " appears at location " +
+    // sparseSearch(stringList, cloned));
+
+    // 10.11
+    int[] arr = { 1, 34, 4, 5, 22, 7, 1, 10, 11, 12, 3, 14, 16, 11 };
+    int[] arr_pv = peaksAndValleys(arr);
+    for (int i : arr_pv) {
+      System.out.print(" ," + i);
+    }
+  }
+
+  /**
+   * Qeustion 10.11 Peaks and Valleys: In an array of integers, a "peak" is an
+   * element which is greater than or equal to the adjacent integers and a
+   * "valley" is an element which is less than or equal to the adjacent integers.
+   * For example, in the array {5, 8, 6, 2, 3, 4, 6}, {8, 6} are peaks and {S, 2}
+   * are valleys. Given an array of integers, sort the array into an alternating
+   * sequence of peaks and valleys.
+   */
+  public static int[] peaksAndValleys(int[] arr) {
+    Arrays.sort(arr);
+    int[] arr_pv = new int[arr.length];
+    int j = arr.length - 1;
+    for (int i = 0; i < arr.length; i += 2) {
+      arr_pv[i] = arr[j];
+      j--;
+    }
+    j = 0;
+    for (int i = 1; i < arr.length; i += 2) {
+      arr_pv[i] = arr[j];
+      j++;
+    }
+    return arr_pv;
+  }
+
+  /**
+   * Question 10.5 Sparse Search: Given a sorted array of strings that is
+   * interspersed with empty strings, write a method to find the location of a
+   * given string.
+   */
+  public static int sparseSearch(String[] strs, String str) {
+    int begin = 0;
+    int end = strs.length - 1;
+
+    return sparseSearch(strs, str, begin, end);
+  }
+
+  private static int sparseSearch(String[] strs, String str, int begin, int end) {
+    if (begin > end)
+      return -1;
+    int mid = begin + (end - begin) / 2;
+
+    int b = str.compareTo(strs[begin]);
+    int e = str.compareTo(strs[end]);
+    int m = str.compareTo(strs[mid]);
+    if (b == 0)
+      return begin;
+    if (e == 0) {
+      return end;
+    }
+    if (strs[mid].isEmpty()) {
+      int i = sparseSearch(strs, str, begin + 1, mid - 1);
+      int j = sparseSearch(strs, str, mid + 1, end - 1);
+      if (i == -1)
+        return j;
+      else
+        return i;
+    }
+
+    else if (m == 0)
+      return mid;
+    else if (begin == end)
+      return -1;
+    else if (m < 0)
+      return sparseSearch(strs, str, begin + 1, mid - 1);
+    else if (m > 0) {
+      return sparseSearch(strs, str, mid + 1, end - 1);
+    }
+    return -1;
 
   }
+
+  /**
+   * Question 10.4 Sorted Search, No Size: You are given an array-like data
+   * structure Listy which lacks a size method. It does, however, have an
+   * elementAt (i) method that returns the element at index i in 0(1) time. If i
+   * is beyond the bounds of the data structure, it returns -1. (For this reason,
+   * the data structure only supports positive integers.) Given a Listy which
+   * contains sorted, positive integers, find the index at which an element x
+   * occurs. If x occurs multiple times, you may return any index.
+   * 
+   */
+  public static int SortedSearchNoSize(Listy listy, int x) {
+    int i = 0;
+    int j = 3;
+    if (listy.elementAt(1) == x)
+      return 1;
+    if (listy.elementAt(2) == x)
+      return 2;
+    return search(listy, x, i, j);
+  }
+
+  public static int search(Listy listy, int x, int i, int j) {
+
+    if (i > j)
+      return -1;
+    if (listy.elementAt(i) == x) {
+      return i;
+    }
+    if (listy.elementAt(j) == x) {
+      return j;
+    }
+    if (i == j)
+      return -1;
+
+    if (listy.elementAt(j) < x) {
+      return search(listy, x, i + 1, j + j);
+    } else {
+      return search(listy, x, i, i + (j - i) / 2);
+    }
+  }
+
+  /**
+   * Question 10.2 Group Anagrams: Write a method to sort an array of strings so
+   * that all the anagrams are next to each other.
+   */
+
+  /**
+   * Question 10.1 Sorted Merge: You are given two sorted arrays, A and B, where A
+   * has a large enough buffer at the end to hold B. Write a method to merge B
+   * into A in sorted order.
+   * 
+   * Go see solution on leetcode.com "Merge Sorted Array" or Book solution 10.1
+   */
 
   /**
    * Eight Queens: Write an algorithm to print all ways of arranging eight queens
@@ -591,5 +741,21 @@ class Point {
     } else {
       return false;
     }
+  }
+}
+
+// for Question 10.4
+class Listy {
+  int[] array;
+
+  public Listy(int[] arr) {
+    array = arr.clone();
+  }
+
+  public int elementAt(int index) {
+    if (index >= array.length) {
+      return -1;
+    }
+    return array[index];
   }
 }
